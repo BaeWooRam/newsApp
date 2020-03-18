@@ -24,3 +24,6 @@ RSS는 사용자가 해당 사이트의 RSS주소를 가지게 됩니다. 이걸
 
 아 아래 설명이 어느정도 이해가 가고 저 정보들을 긁어와서 리스트로 뿌려주면 되겠구나 생각이 든다!
 ![image](https://user-images.githubusercontent.com/41356481/76942185-aa0ca400-6940-11ea-992f-9230264390b4.png)
+
+http통신을 해서 Rss를 들고오면
+DocumentBuilderFactory, DocumentBuilder 이용해서 XML 파싱을 해보기로 하였다
