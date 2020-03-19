@@ -8,7 +8,7 @@ import org.simpleframework.xml.Root
 data class Channel(
     @param:ElementList(entry = "item", inline = true)
     @field:ElementList(entry = "item", inline = true)
-    var item: List<News>,
+    var item: List<Item>,
 
     @param:Element(name = "lastBuildDate")
     @field:Element(name = "lastBuildDate")

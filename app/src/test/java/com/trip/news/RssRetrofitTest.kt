@@ -1,6 +1,6 @@
 package com.trip.news
 
-import com.trip.news.model.rss.RssRetrofitModel
+import com.trip.news.model.RssRetrofitModel
 import org.junit.Test
 
 class RssRetrofitTest {

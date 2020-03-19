@@ -1,6 +1,6 @@
-package com.trip.news.model.rss
+package com.trip.news.model
 
-import android.util.Log
+import com.trip.news.model.rss.Item
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.NodeList
@@ -20,15 +20,15 @@ class RssModel {
         val builder = factory.newDocumentBuilder()
         val document: Document = builder.parse(inputStream)
 
-        val itemList: ArrayList<News> = parseDocument(document)
+        val itemList: ArrayList<Item> = parseDocument(document)
 
         println("파싱된 아이템의 갯수 : " + itemList.size)
     }
 
-    fun parseDocument(document: Document): ArrayList<News> {
+    fun parseDocument(document: Document): ArrayList<Item> {
         val elem: Element = document.documentElement
         val nodeList: NodeList = elem.getElementsByTagName("item")
-        val itemList: ArrayList<News> = ArrayList<News>()
+        val itemList: ArrayList<Item> = ArrayList<Item>()
 
         if (nodeList != null) {
 
@@ -43,7 +43,7 @@ class RssModel {
         return itemList
     }
 
-    fun parseItemNode(nodeList: NodeList, index: Int):News {
+    fun parseItemNode(nodeList: NodeList, index: Int): Item {
         val elem = nodeList.item(index) as Element
 
         val titleElem = elem.getElementsByTagName("title").item(0) as Element
@@ -113,10 +113,10 @@ class RssModel {
         }*/
 
 
-        return News("","")
+        return Item("", "")
     }
 
-    fun getRssItem(): List<News> {
+    fun getRssItem(): List<Item> {
         return listOf()
     }
 
