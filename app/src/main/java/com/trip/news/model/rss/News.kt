@@ -3,15 +3,12 @@ package com.trip.news.model.rss
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Root
 
-@Root
-data class News(
-    @Element
+@Root(name = "item", strict = false)
+data class News (
+    @field:Element(name = "title")
+    @param:Element(name = "title")
     val title: String,
-    @Element
-    val link: String,
-    @Element
-    val description: String,
-    val image: String,
-    val dcDate: String){
 
-}
+    @field:Element(name = "link")
+    @param:Element(name = "link")
+    val link: String)

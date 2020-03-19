@@ -1,8 +1,6 @@
 package com.trip.news
 
-import com.trip.news.model.rss.RssModel
 import com.trip.news.model.rss.RssRetrofitModel
-import org.junit.Before
 import org.junit.Test
 
 class RssRetrofitTest {
@@ -10,14 +8,14 @@ class RssRetrofitTest {
 
     @Test
     fun readRss() {
-        val response = rssModel.newsService.getNewsList().execute()
+        val response = rssModel.newsService.getKrNewsList().execute()
         response.also {
             if (!response.isSuccessful)
                 return@also
 
-            val newsList = it.body()
-            newsList?.run {
-                for (news in this) {
+            val body = it.body()
+            body?.run {
+                for (news in channel.item) {
                     println(news)
                 }
             }

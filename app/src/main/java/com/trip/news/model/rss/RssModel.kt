@@ -113,7 +113,7 @@ class RssModel {
         }*/
 
 
-        return News(title, link, description, "image", "dcDate")
+        return News("","")
     }
 
     fun getRssItem(): List<News> {
