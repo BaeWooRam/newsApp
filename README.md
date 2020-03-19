@@ -28,4 +28,6 @@ RSS는 사용자가 해당 사이트의 RSS주소를 가지게 됩니다. 이걸
 http통신을 해서 Rss를 들고오면
 DocumentBuilderFactory, DocumentBuilder 이용해서 XML 파싱을 해보기로 하였다
 
-근데 영어로 나와서 수정해야겠당 ㅎㅎ;
+근데 테스트 환경해서 그런가 영어로 나와서 수정해야겠당 ㅎㅎ;
+
+## 03-19
