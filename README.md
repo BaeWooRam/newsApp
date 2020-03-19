@@ -2,9 +2,10 @@
 1주차
 ===
 
-## 03-18
 챌린지 공고를 보고 도전!
+차근차근 생각하면서 만들어보자
 
+## 03-18
 상세 요구사항
 1. 스플래쉬 화면
 2. 뉴스 리스트
@@ -27,3 +28,10 @@ RSS는 사용자가 해당 사이트의 RSS주소를 가지게 됩니다. 이걸
 
 http통신을 해서 Rss를 들고오면
 DocumentBuilderFactory, DocumentBuilder 이용해서 XML 파싱을 해보기로 하였다
+
+근데 테스트 환경해서 그런가 영어로 나와서 수정해야겠당 ㅎㅎ;
+
+## 03-19
+영어로 나오는 이유 = https://news.google.com/rss?hl=ko&gl=KR&ceid=KR:ko 이렇게 해줘야할 것 같다.
+그리고 찾아보다가 retrofit으로 하면 더 가독성이 좋아질것같아서 바꿔보기로 했다!
+![image](https://user-images.githubusercontent.com/41356481/77022391-e0900080-69cc-11ea-94b2-91533b60cf0b.png)
