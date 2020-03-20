@@ -52,33 +52,35 @@ mata 데이터를 들고 와야겠네? 여러 페이지를 비교해 보았다. 
 Retrofit으로 paser을 하려고 하니 뉴스마다 Service를 만들어줘야하는 문제가 있어서
 Jsoup으로 분석을 해보려고 한다.
 
+Jsoup관련 정보들을 찾고 정리해본 결과 아래와 같은 코드가 완성되었다. 테스트도 성공적!
+
 ```
-    fun parserNewsContents(rssItemList: List<Item>){
-        try {
-            for(rssItem in rssItemList){
-                val url = rssItem.link
+ fun parserNewsContents(rssItemList: List<Item>){
+     try {
+         for(rssItem in rssItemList){
+             val url = rssItem.link
 
-                if(isUrl(url)){
-                    val doc = Jsoup.connect(url).get()
-                    val description =  getNewsContents(doc.select("meta[property=og:description]"))
-                    val imageURL = getNewsContents(doc.select("meta[property=og:image]"))
-                    val keywordList = parserKeyword(description)
+             if(isUrl(url)){
+                 val doc = Jsoup.connect(url).get()
+                 val description =  getNewsContents(doc.select("meta[property=og:description]"))
+                 val imageURL = getNewsContents(doc.select("meta[property=og:image]"))
+                 val keywordList = parserKeyword(description)
 
-                    val news = News(description = description, link = url, imageURL = imageURL, keyword = keywordList)
-                    println("Create News $news")
-                    newsList.add(news)
-                }
-            }
-        } catch (e: Exception){
-            println("parserNewsContents Function Error! ${e.message}")
-        }
-    }
+                 val news = News(description = description, link = url, imageURL = imageURL, keyword = keywordList)
+                 println("Create News $news")
+                 newsList.add(news)
+             }
+         }
+     } catch (e: Exception){
+         println("parserNewsContents Function Error! ${e.message}")
+     }
+ }
 
-    private fun getNewsContents(elements: Elements):String{
-        return if(elements.size > 0){
-            return elements[0].attr("content")
-        }else{
-            ""
-        }
-    }
+ private fun getNewsContents(elements: Elements):String{
+     return if(elements.size > 0){
+         return elements[0].attr("content")
+     }else{
+         ""
+     }
+ }
 ```
