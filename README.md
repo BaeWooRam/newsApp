@@ -49,3 +49,36 @@ mata 데이터를 들고 와야겠네? 여러 페이지를 비교해 보았다. 
 ![image](https://user-images.githubusercontent.com/41356481/77141250-8de34100-6abf-11ea-900c-e57aa8fb7a4b.png)
 
 위와 같은 구조로 되어있다. 이걸 paser을 해봐야겠다~
+Retrofit으로 paser을 하려고 하니 뉴스마다 Service를 만들어줘야하는 문제가 있어서
+Jsoup으로 분석을 해보려고 한다.
+
+```
+    fun parserNewsContents(rssItemList: List<Item>){
+        try {
+            for(rssItem in rssItemList){
+                val url = rssItem.link
+
+                if(isUrl(url)){
+                    val doc = Jsoup.connect(url).get()
+                    val description =  getNewsContents(doc.select("meta[property=og:description]"))
+                    val imageURL = getNewsContents(doc.select("meta[property=og:image]"))
+                    val keywordList = parserKeyword(description)
+
+                    val news = News(description = description, link = url, imageURL = imageURL, keyword = keywordList)
+                    println("Create News $news")
+                    newsList.add(news)
+                }
+            }
+        } catch (e: Exception){
+            println("parserNewsContents Function Error! ${e.message}")
+        }
+    }
+
+    private fun getNewsContents(elements: Elements):String{
+        return if(elements.size > 0){
+            return elements[0].attr("content")
+        }else{
+            ""
+        }
+    }
+```
