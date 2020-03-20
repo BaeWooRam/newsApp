@@ -34,4 +34,13 @@ DocumentBuilderFactory, DocumentBuilder 이용해서 XML 파싱을 해보기로 
 ## 03-19
 영어로 나오는 이유 = https://news.google.com/rss?hl=ko&gl=KR&ceid=KR:ko 이렇게 해줘야할 것 같다.
 그리고 찾아보다가 retrofit으로 하면 더 가독성이 좋아질것같아서 바꿔보기로 했다!
+
+짜짠 바꾸고 나니깐 가독성이 훨씬 좋아진 것 같다.
+![image](https://user-images.githubusercontent.com/41356481/77139562-d39d0b00-6ab9-11ea-8cdd-55d18278da2f.png)
+뉴스 본문 분석을 진행해보도록 하겠다
+
+
+## 03-20
+오늘 뉴스 본문을 크롬 브라우저에서 "페이지 소스 보기"를 통해 소스를 보았는데
 ![image](https://user-images.githubusercontent.com/41356481/77022391-e0900080-69cc-11ea-94b2-91533b60cf0b.png)
+mata 데이터를 들고 와야겠네? 곧바로 찾아
