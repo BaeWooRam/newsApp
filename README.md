@@ -34,4 +34,53 @@ DocumentBuilderFactory, DocumentBuilder 이용해서 XML 파싱을 해보기로 
 ## 03-19
 영어로 나오는 이유 = https://news.google.com/rss?hl=ko&gl=KR&ceid=KR:ko 이렇게 해줘야할 것 같다.
 그리고 찾아보다가 retrofit으로 하면 더 가독성이 좋아질것같아서 바꿔보기로 했다!
+
+짜짠 바꾸고 나니깐 가독성이 훨씬 좋아진 것 같다.
+
+이제 정보를 가져오기 위해 다시 한번 정리 해보았다.
+![image](https://user-images.githubusercontent.com/41356481/77139562-d39d0b00-6ab9-11ea-8cdd-55d18278da2f.png) 
+먼저, 뉴스 본문 분석을 진행해보도록 하기로 했다!
+
+
+## 03-20
+오늘 뉴스 본문을 크롬 브라우저에서 "페이지 소스 보기"를 통해 소스를 보았는데
 ![image](https://user-images.githubusercontent.com/41356481/77022391-e0900080-69cc-11ea-94b2-91533b60cf0b.png)
+mata 데이터를 들고 와야겠네? 여러 페이지를 비교해 보았다. 그결과,
+![image](https://user-images.githubusercontent.com/41356481/77141250-8de34100-6abf-11ea-900c-e57aa8fb7a4b.png)
+
+위와 같은 구조로 되어있다. 이걸 paser을 해봐야겠다~
+Retrofit으로 paser을 하려고 하니 뉴스마다 Service를 만들어줘야하는 문제가 있어서
+Jsoup으로 분석을 해보려고 한다.
+
+Jsoup관련 정보들을 찾고 정리해본 결과 아래와 같은 코드가 완성되었다. 테스트도 성공적!
+
+```
+ fun parserNewsContents(rssItemList: List<Item>){
+     try {
+         for(rssItem in rssItemList){
+             val url = rssItem.link
+
+             if(isUrl(url)){
+                 val doc = Jsoup.connect(url).get()
+                 val description =  getNewsContents(doc.select("meta[property=og:description]"))
+                 val imageURL = getNewsContents(doc.select("meta[property=og:image]"))
+                 val keywordList = parserKeyword(description)
+
+                 val news = News(description = description, link = url, imageURL = imageURL, keyword = keywordList)
+                 println("Create News $news")
+                 newsList.add(news)
+             }
+         }
+     } catch (e: Exception){
+         println("parserNewsContents Function Error! ${e.message}")
+     }
+ }
+
+ private fun getNewsContents(elements: Elements):String{
+     return if(elements.size > 0){
+         return elements[0].attr("content")
+     }else{
+         ""
+     }
+ }
+```
