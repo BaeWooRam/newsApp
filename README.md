@@ -45,4 +45,7 @@ DocumentBuilderFactory, DocumentBuilder 이용해서 XML 파싱을 해보기로 
 ## 03-20
 오늘 뉴스 본문을 크롬 브라우저에서 "페이지 소스 보기"를 통해 소스를 보았는데
 ![image](https://user-images.githubusercontent.com/41356481/77022391-e0900080-69cc-11ea-94b2-91533b60cf0b.png)
-mata 데이터를 들고 와야겠네? 곧바로 찾아보았다!
+mata 데이터를 들고 와야겠네? 여러 페이지를 비교해 보았다. 그결과,
+![image](https://user-images.githubusercontent.com/41356481/77141250-8de34100-6abf-11ea-900c-e57aa8fb7a4b.png)
+
+위와 같은 구조로 되어있다. 이걸 paser을 해봐야겠다~
