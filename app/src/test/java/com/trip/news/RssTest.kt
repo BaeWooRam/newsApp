@@ -1,6 +1,6 @@
 package com.trip.news
 
-import com.trip.news.model.RssModel
+import com.trip.news.model.rss.RssModel
 import org.junit.Before
 import org.junit.Test
 

@@ -1,6 +1,5 @@
-package com.trip.news.model
+package com.trip.news.model.rss
 
-import com.trip.news.model.rss.Item
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.NodeList
@@ -30,16 +29,11 @@ class RssModel {
         val nodeList: NodeList = elem.getElementsByTagName("item")
         val itemList: ArrayList<Item> = ArrayList<Item>()
 
-        if (nodeList != null) {
+        for (index in 0 until nodeList.length) {
+            val item = parseItemNode(nodeList, index)
 
-            for (index in 0 until nodeList.length) {
-                val item = parseItemNode(nodeList, index)
-
-                itemList.add(item)
-            }
-
+            itemList.add(item)
         }
-
         return itemList
     }
 
@@ -57,41 +51,26 @@ class RssModel {
 //        val dcdateElem = elem.getElementsByTagName("dc:date").item(0) as Element
 
 
-        var title = ""
+        val titleChild = titleElem.firstChild
 
-        if (titleElem != null) {
-
-            val firstChild = titleElem.firstChild
-
-            if (firstChild != null) {
-                title = firstChild.nodeValue
-                println("title : $title")
-            }
-
+        if (titleChild != null) {
+            val title = titleChild.nodeValue
+            println("title : $title")
         }
 
-        var link = ""
+        val linkChild = linkElem.firstChild
 
-        if (linkElem != null) {
-            val firstChild = titleElem.firstChild
-
-            if (firstChild != null) {
-                link = firstChild.nodeValue
-                println("link : $link")
-            }
+        if (linkChild != null) {
+            var link = linkChild.nodeValue
+            println("link : $link")
         }
 
-        var description = ""
+        val descriptionChild = descriptionElem.firstChild
 
-        if (descriptionElem != null) {
-            val firstChild = descriptionElem.firstChild
-
-            if (firstChild != null) {
-                description = firstChild.nodeValue
-                println("description : $description")
-            }
+        if (descriptionChild != null) {
+            var description = descriptionChild.nodeValue
+            println("description : $description")
         }
-
         /*var image = ""
 
         if (imageElem != null) {

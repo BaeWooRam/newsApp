@@ -4,8 +4,6 @@ import android.app.Activity
 import android.app.Application
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.text.TextUtils
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialog
 import com.trip.news.R
 import com.trip.news.model.appModule
@@ -38,47 +36,22 @@ class NewsApplication:Application(){
         }
     }
 
-    fun progressON(activity: Activity?, message: String?) {
-
-        if (activity == null || activity.isFinishing) {
+    fun progressON(activity: Activity?) {
+        if (activity == null || activity.isFinishing)
             return
-        }
 
-
-        if (progressDialog != null && progressDialog!!.isShowing) {
-            progressSET(message?:"")
-        } else {
-
-            progressDialog = AppCompatDialog(activity)
-            progressDialog!!.setCancelable(false)
-            progressDialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            progressDialog!!.setContentView(R.layout.progress_loading)
-            progressDialog!!.show()
-
-        }
-
-        val progressMessage = progressDialog!!.findViewById<TextView>(R.id.tv_progress_message)
-        if (!TextUtils.isEmpty(message)) {
-            progressMessage?.text = message
-        }
-
-
+        showProgress(activity)
     }
 
+    private fun showProgress(activity: Activity?) {
+        progressDialog = AppCompatDialog(activity)
+        progressDialog!!.setCancelable(false)
+        progressDialog!!.setContentView(R.layout.layout_progress_loading)
 
-    fun progressSET(message: String) {
+        val window = progressDialog!!.window
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        if (progressDialog == null || !progressDialog!!.isShowing) {
-            return
-        }
-
-
-        val progressMessage = progressDialog!!.findViewById<TextView>(R.id.tv_progress_message)
-
-        if (!TextUtils.isEmpty(message)) {
-            progressMessage?.text = message
-        }
-
+        progressDialog!!.show()
     }
 
     fun progressOFF() {

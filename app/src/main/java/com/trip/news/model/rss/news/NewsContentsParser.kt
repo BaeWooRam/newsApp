@@ -127,23 +127,22 @@ class NewsContentsParser {
         //URL 패턴 확인
         val p =
             Pattern.compile("^(?:https?:\\/\\/)?(?:www\\.)?[a-zA-Z0-9./]+$")
-        val m = p.matcher(text)
+        val m = p.matcher(text as CharSequence)
         if (m.matches()) return true
 
         //URL 클래스로 생성 및 체크
-        var u: URL? = null
-
-        u = try {
+        var u: URL? = try {
             URL(text)
         } catch (e: MalformedURLException) {
             return false
         }
 
         try {
-            u.toURI()
+            u?.toURI()
         } catch (e: URISyntaxException) {
             return false
         }
+
         return true
     }
 }
