@@ -22,5 +22,6 @@ class SplashActivity:BaseActivity(R.layout.activity_splash) {
         val intent = Intent(this, NewsListActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)
+        finish()
     }
 }

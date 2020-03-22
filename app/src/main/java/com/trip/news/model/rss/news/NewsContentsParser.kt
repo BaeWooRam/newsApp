@@ -1,5 +1,6 @@
 package com.trip.news.model.rss.news
 
+import android.util.Log
 import com.trip.news.model.rss.Item
 import com.trip.news.utils.StringUtil.replaceSpecialCharacters
 import org.jsoup.Jsoup
@@ -49,8 +50,7 @@ class NewsContentsParser {
                     imageURL = imageURL,
                     keyword = keywordList
                 )
-//                    Log.i(tag, "Create News $news")
-                println("Create News $news")
+                Log.i(tag, "Create News $news")
                 newsList.add(news)
             }
         }
@@ -72,9 +72,9 @@ class NewsContentsParser {
      *
      *  조건 : 조사,어미 무시하고 띄어쓰기로 구분하고 등장 빈도수 높은 3건 추출
      */
-    fun parserKeyword(description: String): List<String> {
+    private fun parserKeyword(description: String): List<String> {
         val replacedDescription = replaceSpecialCharacters(description, "")
-        println("description : $description \nreplacedDescription : $replacedDescription")
+        Log.i(tag,"description : $description \nreplacedDescription : $replacedDescription")
         val keywordToken = StringTokenizer(replacedDescription, " ")
         val keywordCountHash: HashMap<String, Int> = HashMap()
 
@@ -82,7 +82,7 @@ class NewsContentsParser {
             val target = keywordToken.nextToken()
             val count = getCountMatchKeyword(target, replacedDescription)
             keywordCountHash[target] = count
-            println("$target : $count")
+            Log.i(tag,"$target : $count")
         }
 
         return getFrequentKeyword(keywordCountHash)

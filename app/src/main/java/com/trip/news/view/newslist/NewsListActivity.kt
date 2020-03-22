@@ -10,6 +10,10 @@ import kotlinx.android.synthetic.main.activity_news_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class NewsListActivity : BaseActivity(), NewsListlView {
+    companion object{
+        const val INTENT_ACTIVITY_NEWS_DETAIL = "NEWS_DETAIL"
+    }
+
     private val viewModel by viewModel<NewsListViewModel>()
     private var binding: ActivityNewsListBinding? = null
     private var adapter:NewsListRvAdapter? = null

@@ -32,7 +32,7 @@ object AdapterBinding {
         errorDrawable:Drawable
     ) {
         val requestOptions = RequestOptions().error(errorDrawable).diskCacheStrategy(
-            DiskCacheStrategy.NONE)
+            DiskCacheStrategy.AUTOMATIC)
 
         Glide.with(imageView.context).applyDefaultRequestOptions(requestOptions).load(url).into(imageView)
     }
