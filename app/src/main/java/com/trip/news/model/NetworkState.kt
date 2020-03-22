@@ -1,8 +1,8 @@
 package com.trip.news.model
 
 sealed class NetworkState<out T> {
-    class Init : NetworkState<Nothing>()
-    class Loading : NetworkState<Nothing>()
+    object Init : NetworkState<Nothing>()
+    object Loading : NetworkState<Nothing>()
     class Success<out T>(val item: T) : NetworkState<T>()
     class Error(val throwable: Throwable?) : NetworkState<Nothing>()
 }

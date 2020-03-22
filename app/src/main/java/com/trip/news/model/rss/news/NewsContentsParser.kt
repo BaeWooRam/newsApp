@@ -25,6 +25,10 @@ class NewsContentsParser {
     private val tag = javaClass.simpleName
     val newsList = ArrayList<News>()
 
+    fun clearNewsList(){
+        newsList.clear()
+    }
+
     /**
      * og:image, og:description 가져오기
      */
@@ -39,6 +43,7 @@ class NewsContentsParser {
                 val keywordList = parserKeyword(description)
 
                 val news = News(
+                    title = rssItem.title,
                     description = description,
                     link = url,
                     imageURL = imageURL,

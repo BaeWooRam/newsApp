@@ -4,4 +4,5 @@ interface BaseView {
     fun showDialog(message: String)
     fun progressON()
     fun progressOFF()
+    fun isNetwork()
 }

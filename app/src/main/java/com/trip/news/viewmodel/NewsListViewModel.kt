@@ -8,9 +8,15 @@ import com.trip.news.model.NetworkState
 import com.trip.news.model.retrofit.RssService
 import com.trip.news.model.rss.news.News
 import com.trip.news.model.rss.news.NewsContentsParser
+import com.trip.news.utils.NetworkUtil
+import com.trip.news.view.newslist.NewsListActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 import kotlin.reflect.KProperty
 
@@ -18,10 +24,10 @@ class NewsListViewModel(
     private val rssService: RssService,
     private val newsContentsParser: NewsContentsParser
 ) : BaseViewModel() {
-    var newsList: MutableLiveData<List<News>> = MutableLiveData()
+    var targetActivity:NewsListActivity? = null
 
     private var currentNewsState: NetworkState<List<News>> by Delegates.observable(
-        NetworkState.Init(),
+        NetworkState.Init,
         { _: KProperty<*>, _: NetworkState<List<News>>, newState: NetworkState<List<News>> ->
             when (newState) {
                 is NetworkState.Init -> {
@@ -29,14 +35,17 @@ class NewsListViewModel(
                 }
 
                 is NetworkState.Loading -> {
-
+                    targetActivity?.progressON()
                 }
 
                 is NetworkState.Success<List<News>> -> {
-
+                    targetActivity?.onUpdateNews(newState.item)
+                    targetActivity?.progressOFF()
                 }
-                is NetworkState.Error -> {
 
+                is NetworkState.Error -> {
+                    targetActivity?.onNetworkError(newState.throwable)
+                    targetActivity?.progressOFF()
                 }
             }
         })
@@ -46,18 +55,18 @@ class NewsListViewModel(
 
         work.observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .doOnTerminate {
-                currentNewsState = NetworkState.Init()
-            }
             .doOnSubscribe {
                 disposable.add(it)
-                currentNewsState = NetworkState.Loading()
+                currentNewsState = NetworkState.Loading
             }
             .subscribe(Consumer {
-//                responseHandle(it)
+                GlobalScope.launch(Dispatchers.IO) {
+                    newsContentsParser.clearNewsList()
+                    newsContentsParser.parserNewsContents(it.channel.item)
+                    currentNewsState = NetworkState.Success(newsContentsParser.newsList)
+                }
             }, Consumer {
                 currentNewsState = NetworkState.Error(it)
             })
-            .dispose()
     }
 }

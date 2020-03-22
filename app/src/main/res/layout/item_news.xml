@@ -7,10 +7,6 @@
         <variable
             name="news"
             type="com.trip.news.model.rss.news.News" />
-
-        <variable
-            name="viewModel"
-            type="com.trip.news.viewmodel.NewsListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,47 +14,61 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/productImage"
+            android:id="@+id/NewsImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            bind:image="@{product.thumbnailImage}"
+            android:scaleType="fitXY"
+            bind:image="@{news.imageURL}"
             bind:imageError="@{@drawable/ic_error_black}"
-            app:layout_constraintVertical_bias="0"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintBottom_toTopOf="@id/productTitle"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/newsTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
-            android:id="@+id/productTitle"
+            android:id="@+id/newsTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:maxLines="2"
             android:ellipsize="end"
+            android:text="@{news.title}"
+            android:textSize="20sp"
             app:layout_constraintVertical_chainStyle="packed"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/NewsImage"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productImage"
-            app:layout_constraintBottom_toTopOf="@id/productPrice"
-            tools:text="상품명상품명상품명상품명상품명상품명상품명"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/newsDescription"
+            tools:text="제목"/>
 
         <TextView
-            android:id="@+id/productPrice"
+            android:id="@+id/newsDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:ellipsize="end"
             android:includeFontPadding="false"
+            android:text="@{news.description}"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/NewsImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productTitle"
-            tools:text="상품가격" />
+            app:layout_constraintTop_toBottomOf="@id/newsTitle"
+            tools:text="내용" />
+
+        <LinearLayout
+            android:id="@+id/keywordLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toEndOf="@id/NewsImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/newsDescription"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
