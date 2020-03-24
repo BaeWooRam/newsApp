@@ -33,7 +33,7 @@ class NewsListActivity : BaseActivity(), NewsListlView {
 
     private fun initSwipe(){
         swipe.setOnRefreshListener{
-            adapter?.currentList?.clear()
+            //TODO clear
             viewModel.getNews()
 
             swipe.isRefreshing = false

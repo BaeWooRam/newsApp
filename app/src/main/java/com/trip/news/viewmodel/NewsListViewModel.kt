@@ -29,15 +29,16 @@ class NewsListViewModel(
     var targetActivity: NewsListActivity? = null
 
     private val pagedListConfig = PagedList.Config.Builder()
-        .setEnablePlaceholders(true)
+        .setEnablePlaceholders(false)
         .setInitialLoadSizeHint(PAGE_NEWS_SIZE)
         .setPageSize(PAGE_NEWS_SIZE)
         .build()
 
     var rssData:LiveData<PagedList<News>>? = null
-    private var currentNewsState: NetworkState<List<News>> by Delegates.observable(
+
+    private var currentNewsState: NetworkState<Unit> by Delegates.observable(
         NetworkState.Init,
-        { _: KProperty<*>, _: NetworkState<List<News>>, newState: NetworkState<List<News>> ->
+        { _: KProperty<*>, _: NetworkState<Unit>, newState: NetworkState<Unit> ->
             when (newState) {
                 is NetworkState.Init -> {
 
@@ -47,7 +48,7 @@ class NewsListViewModel(
                     targetActivity?.progressON()
                 }
 
-                is NetworkState.Success<List<News>> -> {
+                is NetworkState.Success<Unit> -> {
                     targetActivity?.progressOFF()
                 }
 
@@ -68,6 +69,7 @@ class NewsListViewModel(
                 currentNewsState = NetworkState.Loading
             }
             .subscribe(Consumer {
+                currentNewsState = NetworkState.Success(Unit)
                 val dataSourceFactory = RssDataFactory(newsContentsParser, it)
 
                 rssData = LivePagedListBuilder(
