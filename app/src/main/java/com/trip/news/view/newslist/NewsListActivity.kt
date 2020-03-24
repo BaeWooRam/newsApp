@@ -1,6 +1,7 @@
 package com.trip.news.view.newslist
 
 import android.os.Bundle
+import androidx.paging.PagedList
 import com.trip.news.R
 import com.trip.news.base.BaseActivity
 import com.trip.news.databinding.ActivityNewsListBinding
@@ -16,7 +17,7 @@ class NewsListActivity : BaseActivity(), NewsListlView {
 
     private val viewModel by viewModel<NewsListViewModel>()
     private var binding: ActivityNewsListBinding? = null
-    private var adapter:NewsListRvAdapter? = null
+    private var adapter:NewsPageListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +33,7 @@ class NewsListActivity : BaseActivity(), NewsListlView {
 
     private fun initSwipe(){
         swipe.setOnRefreshListener{
-            adapter?.clearItemList()
+            adapter?.currentList?.clear()
             viewModel.getNews()
 
             swipe.isRefreshing = false
@@ -40,7 +41,7 @@ class NewsListActivity : BaseActivity(), NewsListlView {
     }
 
     private fun initRecyclerView(){
-        adapter = NewsListRvAdapter(this)
+        adapter = NewsPageListAdapter(this)
 
         rv_news.adapter = adapter
         rv_news.addItemDecoration(NewsItemDecoration(this))
@@ -52,7 +53,7 @@ class NewsListActivity : BaseActivity(), NewsListlView {
         }
     }
 
-    override fun onUpdateNews(newsList: List<News>) {
-        binding?.newsList = newsList
+    override fun onUpdateNews(newsList: PagedList<News>) {
+        adapter?.submitList(newsList)
     }
 }

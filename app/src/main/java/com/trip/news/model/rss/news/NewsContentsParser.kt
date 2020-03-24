@@ -21,19 +21,16 @@ import kotlin.collections.HashMap
 class NewsContentsParser {
     companion object {
         const val KEYWORD_COUNT_MAX = 3
+        const val PAGE_NEWS_SIZE = 10
     }
-
+    private var id = 0
     private val tag = javaClass.simpleName
-    val newsList = ArrayList<News>()
-
-    fun clearNewsList(){
-        newsList.clear()
-    }
 
     /**
      * og:image, og:description 가져오기
      */
-    fun parserNewsContents(rssItemList: List<Item>) {
+    fun parserNewsContents(rssItemList: List<Item>):List<News> {
+        val newsList = ArrayList<News>()
         for (rssItem in rssItemList) {
             val url = rssItem.link
 
@@ -44,6 +41,7 @@ class NewsContentsParser {
                 val keywordList = parserKeyword(description)
 
                 val news = News(
+                    id = id,
                     title = rssItem.title,
                     description = description,
                     link = url,
@@ -51,9 +49,12 @@ class NewsContentsParser {
                     keyword = keywordList
                 )
                 Log.i(tag, "Create News $news")
+                id++
                 newsList.add(news)
             }
         }
+
+        return newsList
     }
 
     /**
@@ -102,7 +103,6 @@ class NewsContentsParser {
 
         return count
     }
-
 
     /**
      * 키워드 오름차순 정렬하고 최대치까지 내보낸다.

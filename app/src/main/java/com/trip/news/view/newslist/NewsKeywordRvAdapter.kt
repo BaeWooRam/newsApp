@@ -17,8 +17,11 @@ import com.trip.news.model.rss.news.News
 import com.trip.news.view.newdetail.NewsDetailActivity
 
 class NewsKeywordRvAdapter(
-    private val inflater: LayoutInflater
+    context: Context
 ) : BaseRecyclerAdapter<String>(){
+    private val inflater =
+        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = DataBindingUtil.inflate<ItemKeywordBinding>(
             inflater,
