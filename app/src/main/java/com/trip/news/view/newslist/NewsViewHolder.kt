@@ -20,12 +20,14 @@ class NewsViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(news: News) {
-        binding.news = news
-        binding.root.setOnClickListener{
-            goToNewsDetailActivity(news.link)
-        }
+        if(news.title.isNotEmpty()){
+            binding.news = news
+            binding.root.setOnClickListener{
+                goToNewsDetailActivity(news.link)
+            }
 
-        addKeywordView(news.keyword)
+            addKeywordView(news.keyword)
+        }
     }
 
     private fun goToNewsDetailActivity(link: String) {

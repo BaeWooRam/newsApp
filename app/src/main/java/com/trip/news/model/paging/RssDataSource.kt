@@ -33,24 +33,28 @@ class RssDataSource(
         GlobalScope.launch(Dispatchers.IO) {
             val rssItem = getRssItem()
             val data = newsContentsParser.parserNewsContents(rssItem)
-            callback.onResult(data, 0)
+            callback.onResult(data, 0, NewsContentsParser.PAGE_NEWS_SIZE)
         }
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<News>) {
-        Log.i(tag, "Range Loading, rss : ${rss.channel.item.size}, itemQueue : ${itemQueue.size}, start: ${params.startPosition}, size: ${params.loadSize}")
+        Log.i(
+            tag,
+            "Range Loading, rss : ${rss.channel.item.size}, itemQueue : ${itemQueue.size}, start: ${params.startPosition}, size: ${params.loadSize}"
+        )
         GlobalScope.launch(Dispatchers.IO) {
             val rssItem = getRssItem()
             val data = newsContentsParser.parserNewsContents(rssItem)
             callback.onResult(data)
         }
+
     }
 
     private fun getRssItem(): List<Item> {
         val itemList = ArrayList<Item>()
         var count = 0
 
-        while (itemQueue.isNotEmpty()){
+        while (itemQueue.isNotEmpty()) {
             if (count == NewsContentsParser.PAGE_NEWS_SIZE)
                 return itemList
             else {

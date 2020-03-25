@@ -2,6 +2,7 @@ package com.trip.news.utils
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import androidx.annotation.Nullable
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -28,12 +29,14 @@ object AdapterBinding {
     @BindingAdapter("bind:image","bind:imageError")
     fun bindImage(
         imageView: ImageView,
-        url:String,
+        url:String?,
         errorDrawable:Drawable
     ) {
-        val requestOptions = RequestOptions().error(errorDrawable).diskCacheStrategy(
-            DiskCacheStrategy.AUTOMATIC)
+        url?.let {
+            val requestOptions = RequestOptions().error(errorDrawable).diskCacheStrategy(
+                DiskCacheStrategy.AUTOMATIC)
 
-        Glide.with(imageView.context).applyDefaultRequestOptions(requestOptions).load(url).into(imageView)
+            Glide.with(imageView.context).applyDefaultRequestOptions(requestOptions).load(it).into(imageView)
+        }
     }
 }

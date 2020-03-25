@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="news"
+            type="com.trip.news.model.rss.news.News" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/NewsImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            bind:image="@{news.imageURL}"
+            bind:imageError="@{@drawable/ic_error_black}"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/newsTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/newsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="@{news.title}"
+            android:textSize="20sp"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toEndOf="@id/NewsImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/newsDescription"
+            tools:text="제목"/>
+
+        <TextView
+            android:id="@+id/newsDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:text="@{news.description}"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toEndOf="@id/NewsImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/newsTitle"
+            tools:text="내용" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_keyword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:scrollbars="none"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_keyword"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toEndOf="@id/NewsImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/newsDescription"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -45,7 +45,7 @@ class NewsListViewModel(
         { _: KProperty<*>, _: NetworkState<Unit>, newState: NetworkState<Unit> ->
             when (newState) {
                 is NetworkState.Init -> {
-
+                    targetActivity?.onUpdateNews(null)
                 }
 
                 is NetworkState.Loading -> {

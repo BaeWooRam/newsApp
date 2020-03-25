@@ -1,6 +1,7 @@
 package com.trip.news.view.newslist
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
@@ -8,18 +9,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.trip.news.model.rss.news.News
 
-class NewsPageListAdapter(context: Context) : PagedListAdapter<News, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
+class NewsPageListAdapter(context: Context) : PagedListAdapter<News, NewsViewHolder>(REPO_COMPARATOR) {
     private val inflater =
         context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder.create(parent, inflater)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val repoItem = getItem(position)
-        if (repoItem != null) {
-            (holder as NewsViewHolder).bind(repoItem)
+        repoItem?.let {
+            holder.bind(it)
         }
     }
 

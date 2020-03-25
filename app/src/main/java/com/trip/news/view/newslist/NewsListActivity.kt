@@ -34,6 +34,7 @@ class NewsListActivity : BaseActivity(), NewsListlView {
     private fun initSwipe(){
         swipe.setOnRefreshListener{
             //TODO clear
+            //viewModel.rssData?.value?.dataSource?.invalidate()
             viewModel.getNews()
 
             swipe.isRefreshing = false
@@ -53,7 +54,7 @@ class NewsListActivity : BaseActivity(), NewsListlView {
         }
     }
 
-    override fun onUpdateNews(newsList: PagedList<News>) {
+    override fun onUpdateNews(newsList: PagedList<News>?) {
         adapter?.submitList(newsList)
     }
 }

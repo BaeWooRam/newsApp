@@ -5,5 +5,5 @@ import com.trip.news.model.rss.news.News
 
 interface NewsListlView {
     fun onNetworkError(e: Throwable?)
-    fun onUpdateNews(newsList:PagedList<News>)
+    fun onUpdateNews(newsList:PagedList<News>?)
 }
