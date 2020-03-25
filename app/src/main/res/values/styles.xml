@@ -8,4 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SplashContents">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/notosanscjkkr_bold</item>
+        <item name="android:gravity">start</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="SplashIcon">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintDimensionRatio">1:1</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
 </resources>
