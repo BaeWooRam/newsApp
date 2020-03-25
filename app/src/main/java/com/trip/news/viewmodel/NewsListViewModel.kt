@@ -35,6 +35,10 @@ class NewsListViewModel(
         .build()
 
     var rssData:LiveData<PagedList<News>>? = null
+    set(value) {
+        field = value
+        rssData?.removeObservers(targetActivity!!)
+    }
 
     private var currentNewsState: NetworkState<Unit> by Delegates.observable(
         NetworkState.Init,
@@ -80,6 +84,7 @@ class NewsListViewModel(
                 rssData?.observe(targetActivity!!, Observer<PagedList<News>> { item ->
                     targetActivity!!.onUpdateNews(item)
                 })
+
             }, Consumer {
                 currentNewsState = NetworkState.Error(it)
             })

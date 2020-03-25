@@ -19,15 +19,6 @@ class NewsDetailActivity : BaseActivity(R.layout.activity_news_detail){
         initWebView()
     }
 
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && wv_news.canGoBack()) {//웹뷰에서 뒤로가기 버튼을 누르면 뒤로가짐
-            wv_news.goBack();
-            return true;
-        }
-
-        return super.onKeyDown(keyCode, event)
-    }
-
     private fun initWebView() {
         val webViewSetting = wv_news.settings
         webViewSetting.javaScriptEnabled = true

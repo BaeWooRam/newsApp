@@ -1,5 +1,8 @@
 package com.trip.news.model.rss.news
 
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.util.Log
 import com.trip.news.model.rss.Item
 import com.trip.news.utils.StringUtil.replaceSpecialCharacters
@@ -11,6 +14,7 @@ import java.net.URL
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+import java.util.regex.PatternSyntaxException
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
@@ -23,34 +27,44 @@ class NewsContentsParser {
         const val KEYWORD_COUNT_MAX = 3
         const val PAGE_NEWS_SIZE = 10
     }
+
     private var id = 0
     private val tag = javaClass.simpleName
 
     /**
-     * og:image, og:description 가져오기
+     * og:image, og:description 또는 description, keyword가져오기
      */
-    fun parserNewsContents(rssItemList: List<Item>):List<News> {
+    fun parserNewsContents(rssItemList: List<Item>): List<News> {
         val newsList = ArrayList<News>()
         for (rssItem in rssItemList) {
             val url = rssItem.link
 
             if (isUrl(url)) {
-                val doc = Jsoup.connect(url).get()
-                val description = getNewsContents(doc.select("meta[property=og:description]"))
-                val imageURL = getNewsContents(doc.select("meta[property=og:image]"))
-                val keywordList = parserKeyword(description)
+                try {
+                    val doc = Jsoup.connect(url).get()
 
-                val news = News(
-                    id = id,
-                    title = rssItem.title,
-                    description = description,
-                    link = url,
-                    imageURL = imageURL,
-                    keyword = keywordList
-                )
-                Log.i(tag, "Create News $news")
-                id++
-                newsList.add(news)
+                    val propertyDescription = getNewsContents(doc.select("meta[property=og:description]"))
+                    val nameDescription = getNewsContents(doc.select("meta[name=description]"))
+                    val description =
+                        if (propertyDescription.isEmpty()) nameDescription else propertyDescription
+
+                    val imageURL = getNewsContents(doc.select("meta[property=og:image]"))
+                    val keywordList = parserKeyword(description)
+
+                    val news = News(
+                        id = id,
+                        title = rssItem.title,
+                        description = description,
+                        link = url,
+                        imageURL = imageURL,
+                        keyword = keywordList
+                    )
+//                Log.i(tag, "Create News $news")
+                    id++
+                    newsList.add(news)
+                } catch (e: Exception) {
+                    Log.i("parserNewsContents", "Error ${e.message}")
+                }
             }
         }
 
@@ -73,20 +87,32 @@ class NewsContentsParser {
      *
      *  조건 : 조사,어미 무시하고 띄어쓰기로 구분하고 등장 빈도수 높은 3건 추출
      */
-    private fun parserKeyword(description: String): List<String> {
+    @Throws(PatternSyntaxException::class)
+    private fun parserKeyword(description: String): List<String>{
         val replacedDescription = replaceSpecialCharacters(description, "")
-        Log.i(tag,"description : $description \nreplacedDescription : $replacedDescription")
+//        Log.i(tag,"description : $description \nreplacedDescription : $replacedDescription")
         val keywordToken = StringTokenizer(replacedDescription, " ")
         val keywordCountHash: HashMap<String, Int> = HashMap()
 
         while (keywordToken.hasMoreTokens()) {
             val target = keywordToken.nextToken()
-            val count = getCountMatchKeyword(target, replacedDescription)
+            val count = getCountMatchKeyword(target, description)
             keywordCountHash[target] = count
-            Log.i(tag,"$target : $count")
+//            Log.i(tag,"$target : $count")
         }
 
         return getFrequentKeyword(keywordCountHash)
+    }
+
+    fun fromHtml(source: String?): String {
+        source?.let {
+            return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) { // noinspection deprecation
+                Html.fromHtml(source).toString()
+            } else
+                Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY).toString()
+        }
+
+        return ""
     }
 
     /**
@@ -119,7 +145,7 @@ class NewsContentsParser {
         //최대치까지 내보낸다.
         val keywordList = ArrayList<String>()
 
-        if (tempList.isNotEmpty()){
+        if (tempList.isNotEmpty()) {
             for (index in 0 until KEYWORD_COUNT_MAX) {
                 keywordList.add(tempList[index].first)
             }

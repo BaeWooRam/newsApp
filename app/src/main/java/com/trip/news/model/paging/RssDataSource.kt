@@ -12,18 +12,24 @@ import com.trip.news.model.rss.news.NewsContentsParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 class RssDataSource(
     private val newsContentsParser: NewsContentsParser,
     private val rss: Rss
-): PositionalDataSource<News>() {
+) : PositionalDataSource<News>() {
     private val tag = javaClass.simpleName
+    private val itemQueue = rss.channel.getItemQueue()
 
     override fun loadInitial(
         params: LoadInitialParams,
         callback: LoadInitialCallback<News>
     ) {
-        Log.i(tag, "Initial Loading, start: ${params.requestedStartPosition}, size: ${params.requestedLoadSize}")
+        Log.i(
+            tag,
+            "Initial Loading, rss : ${rss.channel.item.size}, itemQueue : ${itemQueue.size}, start: ${params.requestedStartPosition}, size: ${params.requestedLoadSize}"
+        )
         GlobalScope.launch(Dispatchers.IO) {
             val rssItem = getRssItem()
             val data = newsContentsParser.parserNewsContents(rssItem)
@@ -32,7 +38,7 @@ class RssDataSource(
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<News>) {
-        Log.i(tag, "Range Loading, start: ${params.startPosition}, size: ${params.loadSize}")
+        Log.i(tag, "Range Loading, rss : ${rss.channel.item.size}, itemQueue : ${itemQueue.size}, start: ${params.startPosition}, size: ${params.loadSize}")
         GlobalScope.launch(Dispatchers.IO) {
             val rssItem = getRssItem()
             val data = newsContentsParser.parserNewsContents(rssItem)
@@ -40,18 +46,22 @@ class RssDataSource(
         }
     }
 
-    private fun getRssItem():List<Item>{
+    private fun getRssItem(): List<Item> {
         val itemList = ArrayList<Item>()
         var count = 0
 
-        for(item in rss.channel.item){
-            if(count==NewsContentsParser.PAGE_NEWS_SIZE)
+        while (itemQueue.isNotEmpty()){
+            if (count == NewsContentsParser.PAGE_NEWS_SIZE)
                 return itemList
-            else{
-                itemList.add(item)
-                count++
-            }
+            else {
+                val temp = itemQueue.poll()
 
+                if (temp != null) {
+                    itemList.add(temp)
+                    count++
+                } else
+                    return itemList
+            }
         }
 
         return itemList
