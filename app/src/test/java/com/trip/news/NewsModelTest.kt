@@ -1,17 +1,13 @@
 package com.trip.news
 
-import android.text.Html
 import com.trip.news.model.appModule
 import com.trip.news.model.retrofit.RssService
 import com.trip.news.model.rss.Item
-import com.trip.news.model.rss.news.NewsContentsParser
+import com.trip.news.model.news.NewsContentsParser
 import org.junit.*
-import org.koin.core.context.GlobalContext
-import org.koin.core.context.GlobalContext.get
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
-import org.koin.test.get
 import org.koin.test.inject
 
 

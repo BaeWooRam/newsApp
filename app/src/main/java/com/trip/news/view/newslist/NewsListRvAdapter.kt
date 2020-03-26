@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.trip.news.R
 import com.trip.news.base.BaseRecyclerAdapter
 import com.trip.news.databinding.ItemNewsBinding
-import com.trip.news.model.rss.news.News
+import com.trip.news.model.news.News
 
 @Deprecated("페이징 라이브러리로 바꿈")
 class NewsListRvAdapter(

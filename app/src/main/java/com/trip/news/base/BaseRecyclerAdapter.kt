@@ -1,7 +1,6 @@
 package com.trip.news.base
 
 import androidx.recyclerview.widget.RecyclerView
-import com.trip.news.model.rss.news.News
 
 abstract class BaseRecyclerAdapter<T> :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(),

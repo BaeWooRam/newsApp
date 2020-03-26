@@ -2,7 +2,7 @@ package com.trip.news.model
 
 import com.trip.news.model.retrofit.RssService
 import com.trip.news.model.retrofit.ServiceBuilder
-import com.trip.news.model.rss.news.NewsContentsParser
+import com.trip.news.model.news.NewsContentsParser
 import com.trip.news.viewmodel.NewsListViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module

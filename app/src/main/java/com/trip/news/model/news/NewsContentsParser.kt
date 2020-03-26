@@ -1,8 +1,7 @@
-package com.trip.news.model.rss.news
+package com.trip.news.model.news
 
 import android.os.Build
 import android.text.Html
-import android.text.Spanned
 import android.util.Log
 import com.trip.news.model.rss.Item
 import com.trip.news.utils.StringUtil.replaceSpecialCharacters
@@ -63,7 +62,11 @@ class NewsContentsParser {
                     id++
                     newsList.add(news)
                 } catch (e: Exception) {
-                    Log.i("parserNewsContents", "Error ${e.message}")
+                    Log.e("parserNewsContents", "Error ${e.message}")
+
+                    for(e in e.stackTrace){
+                        Log.e(e.className, "${e.methodName} ${e.fileName}")
+                    }
                 }
             }
         }
@@ -144,10 +147,14 @@ class NewsContentsParser {
 
         //최대치까지 내보낸다.
         val keywordList = ArrayList<String>()
+        var count = 0
 
-        if (tempList.isNotEmpty()) {
-            for (index in 0 until KEYWORD_COUNT_MAX) {
-                keywordList.add(tempList[index].first)
+        for (element in tempList) {
+            if(count == KEYWORD_COUNT_MAX)
+                return keywordList
+            else{
+                keywordList.add(element.first)
+                count++
             }
         }
 

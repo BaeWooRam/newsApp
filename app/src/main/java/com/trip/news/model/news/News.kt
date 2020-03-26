@@ -1,4 +1,4 @@
-package com.trip.news.model.rss.news
+package com.trip.news.model.news
 
 data class News(
     var id:Int,

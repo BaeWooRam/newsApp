@@ -7,4 +7,10 @@
     <dimen name="elevation_low">2dp</dimen>
     <dimen name="elevation_mid">6dp</dimen>
     <dimen name="elevation_high">10dp</dimen>
+
+    <!-- 뉴스 아이템 -->
+    <dimen name="news_item_gap">6dp</dimen>
+    <dimen name="news_title_text_size">18sp</dimen>
+    <dimen name="news_description_text_size">16sp</dimen>
+    <dimen name="news_keyword_text_size">10sp</dimen>
 </resources>

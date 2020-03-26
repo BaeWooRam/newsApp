@@ -1,13 +1,11 @@
 package com.trip.news.view.newslist
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import com.trip.news.model.rss.news.News
+import com.trip.news.model.news.News
 
 class NewsPageListAdapter(context: Context) : PagedListAdapter<News, NewsViewHolder>(REPO_COMPARATOR) {
     private val inflater =

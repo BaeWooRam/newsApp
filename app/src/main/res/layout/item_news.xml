@@ -6,56 +6,69 @@
     <data>
         <variable
             name="news"
-            type="com.trip.news.model.rss.news.News" />
+            type="com.trip.news.model.news.News" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_contents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="107dp" />
+
         <ImageView
             android:id="@+id/NewsImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_margin="@dimen/news_item_gap"
             android:scaleType="fitXY"
             bind:image="@{news.imageURL}"
             bind:imageError="@{@drawable/ic_error_black}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/newsTitle"
+            app:layout_constraintEnd_toStartOf="@id/guideline_contents"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
+            style="@style/NewsListItemText"
             android:id="@+id/newsTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:maxLines="2"
-            android:ellipsize="end"
+            android:layout_marginTop="@dimen/news_item_gap"
+            android:maxLines="1"
             android:text="@{news.title}"
-            android:textSize="20sp"
-            app:layout_constraintVertical_chainStyle="packed"
+            android:textSize="@dimen/news_title_text_size"
+            android:fontFamily="@font/notosanscjkkr_bold"
+            app:layout_constraintVertical_bias="0"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toEndOf="@id/NewsImage"
+            app:layout_constraintStart_toEndOf="@id/guideline_contents"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/newsDescription"
             tools:text="제목"/>
 
         <TextView
+            style="@style/NewsListItemText"
             android:id="@+id/newsDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:includeFontPadding="false"
+            android:layout_marginTop="@dimen/news_item_gap"
+            android:layout_marginBottom="@dimen/news_item_gap"
+            android:maxLines="2"
             android:text="@{news.description}"
+            android:textSize="@dimen/news_description_text_size"
+            android:fontFamily="@font/notosanscjkkr_regular"
+            android:textColor="@android:color/black"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toEndOf="@id/NewsImage"
+            app:layout_constraintStart_toEndOf="@id/guideline_contents"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rv_keyword"
             app:layout_constraintTop_toBottomOf="@id/newsTitle"
             tools:text="내용" />
 
@@ -67,8 +80,9 @@
             android:scrollbars="none"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_keyword"
+            android:layout_marginBottom="@dimen/news_item_gap"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toEndOf="@id/NewsImage"
+            app:layout_constraintStart_toEndOf="@id/guideline_contents"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/newsDescription"/>

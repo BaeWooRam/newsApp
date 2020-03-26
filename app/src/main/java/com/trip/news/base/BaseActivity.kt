@@ -16,8 +16,8 @@ open class BaseActivity :AppCompatActivity,BaseView{
             BaseDialog(this, message).show()
     }
 
-    override fun progressON() {
-        NewsApplication.getGlobalApplicationContext().progressON(this)
+    override fun progressON(type: ProgressType) {
+        NewsApplication.getGlobalApplicationContext().progressON(this, type)
     }
 
     override fun progressOFF() {

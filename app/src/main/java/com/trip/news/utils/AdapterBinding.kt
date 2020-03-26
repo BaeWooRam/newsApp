@@ -2,14 +2,13 @@ package com.trip.news.utils
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import androidx.annotation.Nullable
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.trip.news.base.BaseAdapter
-import com.trip.news.model.rss.news.News
+import com.trip.news.model.news.News
 
 
 object AdapterBinding {
