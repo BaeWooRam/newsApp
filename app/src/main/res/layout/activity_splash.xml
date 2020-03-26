@@ -21,13 +21,14 @@
         android:orientation="vertical"/>
 
 
-    <ImageView
+    <com.trip.news.view.custom.CircleImageView
         style="@style/SplashIcon"
         android:id="@+id/icon_news"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        android:src="@drawable/icon_news"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintBottom_toTopOf="@id/label1"
         app:layout_constraintEnd_toStartOf="@id/guideline_end"

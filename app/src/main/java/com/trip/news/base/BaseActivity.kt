@@ -4,6 +4,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.trip.news.base.type.ProgressType
 import com.trip.news.utils.NetworkUtil
 import com.trip.news.view.NewsApplication
 

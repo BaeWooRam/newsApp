@@ -63,10 +63,6 @@ class NewsContentsParser {
                     newsList.add(news)
                 } catch (e: Exception) {
                     Log.e("parserNewsContents", "Error ${e.message}")
-
-                    for(e in e.stackTrace){
-                        Log.e(e.className, "${e.methodName} ${e.fileName}")
-                    }
                 }
             }
         }
@@ -105,17 +101,6 @@ class NewsContentsParser {
         }
 
         return getFrequentKeyword(keywordCountHash)
-    }
-
-    fun fromHtml(source: String?): String {
-        source?.let {
-            return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) { // noinspection deprecation
-                Html.fromHtml(source).toString()
-            } else
-                Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY).toString()
-        }
-
-        return ""
     }
 
     /**

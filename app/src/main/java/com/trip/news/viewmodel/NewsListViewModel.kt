@@ -1,12 +1,11 @@
 package com.trip.news.viewmodel
 
-import android.net.NetworkRequest
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.trip.news.base.BaseViewModel
-import com.trip.news.base.ProgressType
+import com.trip.news.base.type.ProgressType
 import com.trip.news.model.NetworkState
 import com.trip.news.model.paging.RssDataFactory
 import com.trip.news.model.retrofit.RssService
