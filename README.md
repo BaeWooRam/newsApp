@@ -124,8 +124,15 @@ Paging Library를 써서 만들긴 했지만 뭔가 엉망진창인 느낌이라
 스플래시 화면를 구성하다가
 텍스트 3개 라벨?
 텍스트 영역 전체 화면 가운데 정렬?
-
 의미가 헷갈린다..
+![image](https://user-images.githubusercontent.com/41356481/77717129-051a5700-7023-11ea-9639-0cd8d197fa75.png)
+
+그래서 위와 같이 나누기로 했다.
+
+
+그리고 뉴스 리스트가 Mvvm 패턴 잘 지키고 있는가 체크를 하기 위해
+내가 생각하는 기능을 분리시켜 보았다. 
+![image](https://user-images.githubusercontent.com/41356481/77718211-a5717b00-7025-11ea-8439-8ae50b347bc8.png)
 
 
 
