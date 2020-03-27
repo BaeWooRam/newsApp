@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -29,11 +31,13 @@ class SplashActivity:BaseActivity(R.layout.activity_splash) {
     }
 
     private fun initActivity(){
-        //아이콘 원형 마스킹
         Glide.with(this)
             .load(R.drawable.icon_news)
             .apply(RequestOptions.circleCropTransform())
             .into(icon_news)
+
+        icon_news.background = ShapeDrawable(OvalShape())
+        icon_news.clipToOutline = true
 
         //앱 버전 이름
         version.text = getVersionName(this)

@@ -1,12 +1,11 @@
 package com.trip.news.view.newdetail
 
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
+import androidx.annotation.RequiresApi
 import com.trip.news.R
 import com.trip.news.base.BaseActivity
 import com.trip.news.view.newslist.NewsListActivity
@@ -35,19 +34,45 @@ class NewsDetailActivity : BaseActivity(R.layout.activity_news_detail){
     inner class WebViewClientClass : WebViewClient() {
         //페이지 이동
         override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-            Log.i(javaClass.simpleName, "UrlLoading : $url")
+//            Log.i(javaClass.simpleName, "UrlLoading : $url")
             view.loadUrl(url)
             return true
         }
 
-        override fun onPageFinished(view: WebView?, url: String?) {
-            Log.i(javaClass.simpleName, "onPageFinished")
-            super.onPageFinished(view, url)
+        override fun onReceivedError(
+            view: WebView?,
+            errorCode: Int,
+            description: String?,
+            failingUrl: String?
+        ) {
+            super.onReceivedError(view, errorCode, description, failingUrl)
+            handleWebError(errorCode = errorCode)
         }
 
-        override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-            Log.i(javaClass.simpleName, "onPageStarted")
-            super.onPageStarted(view, url, favicon)
+        private fun handleWebError(errorCode:Int){
+            when (errorCode) {
+                ERROR_AUTHENTICATION -> {
+                    showDialog("인증 오류가 발생하였습니다. 다시 시도해주세요.")
+                }
+                ERROR_BAD_URL -> {
+                    showDialog("URL 주소가 잘못되었습니다. 다시 시도해주세요.")
+                }
+                ERROR_CONNECT -> {
+                    showDialog("연결 도중 에러가 발생하였습니다. 다시 시도해주세요.")
+                }
+                ERROR_FAILED_SSL_HANDSHAKE -> {
+                    showDialog("SSL 인증 실패 에러가 발생하였습니다. 다시 시도해주세요.")
+                }
+                ERROR_TIMEOUT -> {
+                    showDialog("연결 시간이 초과했습니다. 다시 시도해주세요.")
+                }
+                ERROR_TOO_MANY_REQUESTS -> {
+                    showDialog("너무 많은 요청이 들어왔습니다. 다시 시도해주세요.")
+                }
+                ERROR_UNKNOWN -> {
+                    showDialog("알 수 없는 에러가 발생했습니다. 다시 시도해주세요.")
+                }
+            }
         }
     }
 
