@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.trip.news.R
-import com.trip.news.base.BaseRecyclerAdapter
+import com.trip.news.base.view.BaseRecyclerAdapter
 import com.trip.news.databinding.ItemKeywordBinding
 
 class NewsKeywordRvAdapter(

@@ -4,11 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.trip.news.base.BaseViewModel
-import com.trip.news.base.type.ProgressType
+import com.trip.news.base.viewmodel.BaseViewModel
 import com.trip.news.model.NetworkState
-import com.trip.news.model.paging.RssDataFactory
-import com.trip.news.model.retrofit.RssService
+import com.trip.news.model.news.NewsDataFactory
+import com.trip.news.model.api.RssService
 import com.trip.news.model.news.News
 import com.trip.news.model.news.NewsContentsParser
 import com.trip.news.model.news.NewsContentsParser.Companion.PAGE_NEWS_SIZE
@@ -66,11 +65,11 @@ class NewsListViewModel(
             }
             .doOnSubscribe {
                 disposable.add(it)
-                currentNewsState = NetworkState.Loading(ProgressType.LOADING_RSS)
+                currentNewsState = NetworkState.Loading(NetworkState.ProgressType.LOADING_RSS)
             }
             .subscribe(Consumer {
                 //Paging DataSourceFactory 생성
-                val dataSourceFactory = RssDataFactory(
+                val dataSourceFactory = NewsDataFactory(
                     newsContentsParser = newsContentsParser,
                     rss = it,
                     viewModel = this

@@ -20,6 +20,13 @@
         app:layout_constraintGuide_percent="0.8"
         android:orientation="vertical"/>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline_contents"
+        app:layout_constraintGuide_percent="0.4"
+        android:orientation="horizontal"/>
+
 
     <com.trip.news.view.custom.CircleImageView
         style="@style/SplashIcon"
@@ -28,9 +35,13 @@
         android:layout_height="0dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/icon_news"
+        app:civ_border_width="0dp"
+        app:civ_border_color="#00000000"
+        app:layout_constraintVertical_bias="1"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintBottom_toTopOf="@id/label1"
+        app:layout_constraintBottom_toTopOf="@id/guideline_contents"
         app:layout_constraintEnd_toStartOf="@id/guideline_end"
         app:layout_constraintStart_toEndOf="@id/guideline_start"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +52,7 @@
         android:layout_marginEnd="20dp"
         android:src="@drawable/icon_internet"
         app:layout_constraintVertical_bias="1"
-        app:layout_constraintBottom_toBottomOf="@id/icon_news"
+        app:layout_constraintBottom_toTopOf="@id/guideline_contents"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline_end"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +64,7 @@
         android:layout_marginStart="20dp"
         android:src="@drawable/icon_rss"
         app:layout_constraintVertical_bias="1"
-        app:layout_constraintBottom_toBottomOf="@id/icon_news"
+        app:layout_constraintBottom_toTopOf="@id/guideline_contents"
         app:layout_constraintEnd_toStartOf="@id/guideline_start"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -68,7 +79,7 @@
         app:layout_constraintBottom_toTopOf="@id/label2"
         app:layout_constraintEnd_toStartOf="@+id/guideline_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/guideline_contents" />
 
     <TextView
         style="@style/SplashContents"
@@ -83,16 +94,16 @@
         app:layout_constraintTop_toBottomOf="@+id/label1"/>
 
     <TextView
-        style="@style/SplashContents"
         android:id="@+id/label3"
+        style="@style/SplashContents"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/app_contents_label3"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/version"
         app:layout_constraintEnd_toStartOf="@+id/guideline_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/label2"/>
+        app:layout_constraintTop_toBottomOf="@+id/label2"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/version"

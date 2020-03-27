@@ -24,7 +24,7 @@ import kotlin.collections.HashMap
 class NewsContentsParser {
     companion object {
         const val KEYWORD_COUNT_MAX = 3
-        const val PAGE_NEWS_SIZE = 10
+        const val PAGE_NEWS_SIZE = 12
     }
 
     private var id = 0

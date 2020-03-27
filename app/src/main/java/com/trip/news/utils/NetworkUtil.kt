@@ -4,9 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.os.AsyncTask
 import android.util.Log
-import com.trip.news.base.BaseDialog
-import com.trip.news.base.BaseView
-import java.io.IOException
+import com.trip.news.base.view.BaseView
 import java.net.HttpURLConnection
 import java.net.URL
 

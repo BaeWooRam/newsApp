@@ -7,7 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatDialog
 import com.trip.news.R
-import com.trip.news.base.type.ProgressType
+import com.trip.news.model.NetworkState
 import com.trip.news.model.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -37,13 +37,13 @@ class NewsApplication:Application(){
         }
     }
 
-    fun progressON(activity: Activity?, type: ProgressType) {
+    fun progressON(activity: Activity?, type: NetworkState.ProgressType) {
         if (activity == null || activity.isFinishing)
             return
 
         when(type){
-            ProgressType.LOADING_RSS -> showProgress(activity, R.layout.layout_progress_rss)
-            ProgressType.LOADING_NEWS -> showProgress(activity, R.layout.layout_progress_news)
+            NetworkState.ProgressType.LOADING_RSS -> showProgress(activity, R.layout.layout_progress_rss)
+            NetworkState.ProgressType.LOADING_NEWS -> showProgress(activity, R.layout.layout_progress_news)
             else -> throw Throwable("Error ProgressType!")
         }
     }

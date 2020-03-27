@@ -1,4 +1,4 @@
-package com.trip.news.base
+package com.trip.news.base.view
 
 import androidx.recyclerview.widget.RecyclerView
 

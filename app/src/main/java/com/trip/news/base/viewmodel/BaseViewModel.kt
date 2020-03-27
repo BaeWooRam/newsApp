@@ -1,4 +1,4 @@
-package com.trip.news.base
+package com.trip.news.base.viewmodel
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable

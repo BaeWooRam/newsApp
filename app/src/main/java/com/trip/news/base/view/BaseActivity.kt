@@ -1,14 +1,14 @@
-package com.trip.news.base
+package com.trip.news.base.view
 
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.trip.news.base.type.ProgressType
+import com.trip.news.model.NetworkState
 import com.trip.news.utils.NetworkUtil
 import com.trip.news.view.NewsApplication
 
-open class BaseActivity :AppCompatActivity,BaseView{
+open class BaseActivity :AppCompatActivity, BaseView {
     constructor(@LayoutRes layout:Int) : super(layout)
     constructor()
 
@@ -17,7 +17,7 @@ open class BaseActivity :AppCompatActivity,BaseView{
             BaseDialog(this, message).show()
     }
 
-    override fun progressON(type: ProgressType) {
+    override fun progressON(type: NetworkState.ProgressType) {
         NewsApplication.getGlobalApplicationContext().progressON(this, type)
     }
 

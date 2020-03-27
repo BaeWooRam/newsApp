@@ -1,46 +1,32 @@
 package com.trip.news.view.splash
 
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.OvalShape
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.trip.news.R
-import com.trip.news.base.BaseActivity
+import com.trip.news.base.view.BaseActivity
+import com.trip.news.utils.AppUtil
 import com.trip.news.view.newslist.NewsListActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 
 
 
-class SplashActivity:BaseActivity(R.layout.activity_splash) {
+class SplashActivity: BaseActivity(R.layout.activity_splash) {
     private val handler = Handler()
     private val splashTime = 1300L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initActivity()
-
-        handler.postDelayed({
-            goToNewsListActivity()
-        },splashTime)
     }
 
     private fun initActivity(){
-        Glide.with(this)
-            .load(R.drawable.icon_news)
-            .apply(RequestOptions.circleCropTransform())
-            .into(icon_news)
-
-        icon_news.background = ShapeDrawable(OvalShape())
-        icon_news.clipToOutline = true
-
         //앱 버전 이름
-        version.text = getVersionName(this)
+        version.text = AppUtil.getVersionName(this)
+
+        //1.3초가 지나고 NewsListActivity 이동
+        handler.postDelayed({
+            goToNewsListActivity()
+        },splashTime)
     }
 
     private fun goToNewsListActivity(){
@@ -50,17 +36,4 @@ class SplashActivity:BaseActivity(R.layout.activity_splash) {
         finish()
     }
 
-    private fun getVersionName(context: Context): String{
-        var versionName = "Unknown"
-        val packageInfo: PackageInfo
-
-        try {
-            packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            versionName = packageInfo.versionName
-        } catch (e: PackageManager.NameNotFoundException) {
-            Log.e(javaClass.simpleName, "getVersionInfo :" + e.message)
-        }
-
-        return versionName
-    }
 }

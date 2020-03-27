@@ -1,4 +1,4 @@
-package com.trip.news.model.retrofit
+package com.trip.news.model.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

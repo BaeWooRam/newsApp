@@ -1,22 +1,24 @@
-package com.trip.news.model.paging
+package com.trip.news.model.news
 
 import androidx.paging.DataSource
 import com.trip.news.model.rss.Rss
-import com.trip.news.model.news.News
-import com.trip.news.model.news.NewsContentsParser
 import com.trip.news.viewmodel.NewsListViewModel
 
-class RssDataFactory(
+class NewsDataFactory(
     private val rss: Rss,
     private val newsContentsParser: NewsContentsParser,
     private val viewModel: NewsListViewModel
 ) : DataSource.Factory<Int, News>() {
 
-    private var rssDataSource: RssDataSource? = null
+    private var rssDataSource: NewsDataSource? = null
 
     override fun create(): DataSource<Int, News> {
         rssDataSource =
-            RssDataSource(newsContentsParser = newsContentsParser, rss = rss, viewModel = viewModel)
+            NewsDataSource(
+                newsContentsParser = newsContentsParser,
+                rss = rss,
+                viewModel = viewModel
+            )
 
         return rssDataSource!!
     }

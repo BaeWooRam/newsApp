@@ -3,7 +3,7 @@ package com.trip.news.view.newslist
 import android.os.Bundle
 import androidx.paging.PagedList
 import com.trip.news.R
-import com.trip.news.base.BaseActivity
+import com.trip.news.base.view.BaseActivity
 import com.trip.news.model.news.News
 import com.trip.news.viewmodel.NewsListViewModel
 import kotlinx.android.synthetic.main.activity_news_list.*
@@ -29,7 +29,6 @@ class NewsListActivity : BaseActivity(R.layout.activity_news_list) {
 
     private fun initSwipe(){
         swipe.setOnRefreshListener{
-            //TODO clear
             //viewModel.rssData?.value?.dataSource?.invalidate()
             viewModel.getNews()
 

@@ -1,7 +1,7 @@
 package com.trip.news
 
 import com.trip.news.model.appModule
-import com.trip.news.model.retrofit.RssService
+import com.trip.news.model.api.RssService
 import com.trip.news.model.rss.Item
 import com.trip.news.model.news.NewsContentsParser
 import org.junit.*

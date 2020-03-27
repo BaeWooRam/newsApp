@@ -1,13 +1,9 @@
 package com.trip.news.view.newdetail
 
-import android.graphics.Bitmap
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.webkit.*
-import androidx.annotation.RequiresApi
 import com.trip.news.R
-import com.trip.news.base.BaseActivity
+import com.trip.news.base.view.BaseActivity
 import com.trip.news.view.newslist.NewsListActivity
 import kotlinx.android.synthetic.main.activity_news_detail.*
 

@@ -1,4 +1,4 @@
-package com.trip.news.model.retrofit
+package com.trip.news.model.api
 
 import com.trip.news.model.rss.Rss
 import io.reactivex.Observable
