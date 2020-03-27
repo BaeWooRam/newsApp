@@ -132,8 +132,7 @@ Paging Library를 써서 만들긴 했지만 뭔가 엉망진창인 느낌이라
 
 그리고 뉴스 리스트가 Mvvm 패턴 잘 지키고 있는가 체크를 하기 위해
 내가 생각하는 기능을 분리시켜 보았다. 
-![image](https://user-images.githubusercontent.com/41356481/77716866-73aae500-7022-11ea-9df4-37491a9d5ca4.png)
-
+![image](https://user-images.githubusercontent.com/41356481/77717283-65a99400-7023-11ea-8791-7b2e52b15ead.png)
 
 
 
