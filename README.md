@@ -136,3 +136,25 @@ Paging Library를 써서 만들긴 했지만 뭔가 엉망진창인 느낌이라
 
 
 
+## 사용한 오픈소스
+- retrofit2
+1) converter-simplexml : https://github.com/square/retrofit/tree/master/retrofit-converters/simplexml
+2) retrofit : https://square.github.io/retrofit/
+3) adapter-rxjava2 : https://github.com/square/retrofit/tree/master/retrofit-adapters/rxjava2
+
+- rxjava
+1)rxjava : https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxjava
+2)rxandroid : https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxandroid
+
+- okhttp
+1)okhttp : https://square.github.io/okhttp/
+2)logging-interceptor : https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor
+
+- koin : https://github.com/InsertKoinIO/koin
+
+- jsoup : https://jsoup.org/download
+
+- glide : https://bumptech.github.io/glide/doc/download-setup.html
+
+- coroutines : https://github.com/Kotlin/kotlinx.coroutines
+ 
