@@ -13,4 +13,8 @@
     <dimen name="news_title_text_size">18sp</dimen>
     <dimen name="news_description_text_size">16sp</dimen>
     <dimen name="news_keyword_text_size">10sp</dimen>
+    <dimen name="news_item_margin_start">8dp</dimen>
+
+    <!-- Progress -->
+    <dimen name="text_margin_top">10dp</dimen>
 </resources>

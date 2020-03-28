@@ -15,8 +15,8 @@
         android:textSize="@dimen/news_keyword_text_size"
         android:text="@{keyword}"
         android:fontFamily="@font/notosanscjkkr_regular"
+        android:layout_marginStart="@dimen/news_item_margin_start"
         android:maxLength="6"
-        android:ellipsize="end"
         android:background="@drawable/bg_oval"
         tools:text="배우람"/>
 

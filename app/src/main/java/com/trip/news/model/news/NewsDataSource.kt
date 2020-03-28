@@ -45,7 +45,7 @@ class NewsDataSource(
         val rssItem = getRssItem()
         val data = newsContentsParser.parserNewsContents(rssItem)
         handler.sendEmptyMessage(NetworkState.ProgressType.LOADING_NONE.getValue())
-        callback.onResult(data, 0, NewsContentsParser.PAGE_NEWS_SIZE)
+        callback.onResult(data, 0)
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<News>) {

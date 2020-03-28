@@ -5,15 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.trip.news.view.custom.CircleImageView
         android:id="@+id/iv_loading"
         android:layout_width="100dp"
         android:layout_height="80dp"
-        android:background="@drawable/icon_news"/>
+        android:src="@drawable/icon_news"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:textColor="@android:color/white"
         android:text="@string/progress_news"
+        android:layout_marginTop="@dimen/text_margin_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </LinearLayout>

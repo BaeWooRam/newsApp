@@ -1,7 +1,10 @@
 package com.trip.news.view.newdetail
 
+import android.annotation.TargetApi
+import android.os.Build
 import android.os.Bundle
 import android.webkit.*
+import androidx.annotation.RequiresApi
 import com.trip.news.R
 import com.trip.news.base.view.BaseActivity
 import com.trip.news.view.newslist.NewsListActivity
@@ -28,10 +31,23 @@ class NewsDetailActivity : BaseActivity(R.layout.activity_news_detail){
     }
 
     inner class WebViewClientClass : WebViewClient() {
+
         //페이지 이동
         override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
 //            Log.i(javaClass.simpleName, "UrlLoading : $url")
             view.loadUrl(url)
+            return true
+        }
+
+        @TargetApi(Build.VERSION_CODES.N)
+        override fun shouldOverrideUrlLoading(
+            view: WebView?,
+            request: WebResourceRequest?
+        ): Boolean {
+            view?.run {
+                loadUrl(request?.url.toString())
+            }
+
             return true
         }
 
@@ -43,6 +59,19 @@ class NewsDetailActivity : BaseActivity(R.layout.activity_news_detail){
         ) {
             super.onReceivedError(view, errorCode, description, failingUrl)
             handleWebError(errorCode = errorCode)
+        }
+
+
+        @RequiresApi(Build.VERSION_CODES.M)
+        override fun onReceivedError(
+            view: WebView?,
+            request: WebResourceRequest?,
+            error: WebResourceError?
+        ) {
+            super.onReceivedError(view, request, error)
+            error?.let {
+                handleWebError(errorCode = it.errorCode)
+            }
         }
 
         private fun handleWebError(errorCode:Int){
