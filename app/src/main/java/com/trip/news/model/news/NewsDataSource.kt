@@ -40,7 +40,7 @@ class NewsDataSource(
         params: LoadInitialParams,
         callback: LoadInitialCallback<News>
     ) {
-        Log.i( tag, "Initial Loading, itemQueue : ${itemQueue.size}, start: ${params.requestedStartPosition}, size: ${params.requestedLoadSize}" )
+//        Log.i( tag, "Initial Loading, itemQueue : ${itemQueue.size}, start: ${params.requestedStartPosition}, size: ${params.requestedLoadSize}" )
         handler.sendEmptyMessage(NetworkState.ProgressType.LOADING_NEWS.getValue())
         val rssItem = getRssItem()
         val data = newsContentsParser.parserNewsContents(rssItem)
@@ -49,7 +49,7 @@ class NewsDataSource(
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<News>) {
-        Log.i(tag, "Range Loading, itemQueue : ${itemQueue.size}, start: ${params.startPosition}, size: ${params.loadSize}" )
+//        Log.i(tag, "Range Loading, itemQueue : ${itemQueue.size}, start: ${params.startPosition}, size: ${params.loadSize}" )
         handler.sendEmptyMessage(NetworkState.ProgressType.LOADING_NEWS.getValue())
         val rssItem = getRssItem()
         val data = newsContentsParser.parserNewsContents(rssItem)
@@ -61,7 +61,7 @@ class NewsDataSource(
     /**
      * Queue에서 Page 아이템 갯수만큼 가져온다.
      */
-    private fun getRssItem(): List<Item> {
+    private fun getRssItem(): ArrayList<Item> {
         val itemList = ArrayList<Item>()
         var count = 0
 
