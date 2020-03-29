@@ -34,7 +34,7 @@ DocumentBuilderFactory, DocumentBuilder 이용해서 XML 파싱을 해보기로 
 근데 테스트 환경해서 그런가 영어로 나와서 수정해야겠당 ㅎㅎ;
    
 ## 03-19
-**영어로 나오는 이유**
+**영어로 나오는 이유**   
 https://news.google.com/rss?hl=ko&gl=KR&ceid=KR:ko    
 이렇게 해줘야할 것 같다.
    
