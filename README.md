@@ -152,11 +152,12 @@ Paging Library를 써서 만들긴 했지만 뭔가 엉망진창인 느낌이라
 3. Paging Library를 잘 사용하고 있나?   
 일단 예제들과 샘플 앱을 보면서 만들기 했는데 누군가 피드백을 받아야 될 것 같다.   
    
-4. Memory Leak이 발생하는 곳이 있나? 최대한 확인만 해보자   
+4. Memory Leak이 발생하는 곳이 있나?   
+최대한 확인만 해보자   
    
 5. Koin을 이용해서 DI를 잘하고 있는가?   
+사용하는게 별로 없어서... 흠   
    
-
 ## 사용한 오픈소스
 - retrofit2   
 1) converter-simplexml : https://github.com/square/retrofit/tree/master/retrofit-converters/simplexml   
