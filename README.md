@@ -160,9 +160,9 @@ Paging Library를 써서 만들긴 했지만 뭔가 엉망진창인 느낌이라
    
 ## 사용한 오픈소스
 - retrofit2   
-1) converter-simplexml : https://github.com/square/retrofit/tree/master/retrofit-converters/simplexml   
-2) retrofit : https://square.github.io/retrofit/   
-3) adapter-rxjava2 : https://github.com/square/retrofit/tree/master/retrofit-adapters/rxjava2   
+1)converter-simplexml : https://github.com/square/retrofit/tree/master/retrofit-converters/simplexml   
+2)retrofit : https://square.github.io/retrofit/   
+3)adapter-rxjava2 : https://github.com/square/retrofit/tree/master/retrofit-adapters/rxjava2   
    
 - rxjava   
 1)rxjava : https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxjava   
