@@ -1,5 +1,6 @@
 package com.trip.news.base.view
 
+import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -11,6 +12,10 @@ import com.trip.news.view.NewsApplication
 open class BaseActivity :AppCompatActivity, BaseView {
     constructor(@LayoutRes layout:Int) : super(layout)
     constructor()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun showDialog(message: String) {
         if (!isDestroyed)

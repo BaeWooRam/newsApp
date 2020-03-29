@@ -24,14 +24,14 @@ android {
         }
     }
 
-  /*  signingConfigs {
+    signingConfigs {
         release {
-            storeFile file(HWAHAE_STORE_FILE)
-            storePassword HWAHAE_STORE_PASSWORD
-            keyAlias HWAHAE_KEY_ALIAS
-            keyPassword HWAHAE_KEY_PASSWORD
+            storeFile file(NEWS_STORE_FILE)
+            storePassword NEWS_STORE_PASSWORD
+            keyAlias NEWS_KEY_ALIAS
+            keyPassword NEWS_KEY_PASSWORD
         }
-    }*/
+    }
 
     flavorDimensions "flavors"
     productFlavors {
