@@ -20,6 +20,7 @@
         app:layout_constraintGuide_percent="0.8"
         android:orientation="vertical"/>
 
+
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,16 +32,13 @@
     <com.trip.news.view.custom.CircleImageView
         style="@style/SplashIcon"
         android:id="@+id/icon_news"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_width="@dimen/splash_logo_image_size"
+        android:layout_height="@dimen/splash_logo_image_size"
         android:scaleType="centerCrop"
         android:src="@drawable/icon_news"
         app:civ_border_width="0dp"
         app:civ_border_color="#00000000"
         app:layout_constraintVertical_bias="1"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintBottom_toTopOf="@id/guideline_contents"
         app:layout_constraintEnd_toStartOf="@id/guideline_end"
         app:layout_constraintStart_toEndOf="@id/guideline_start"
@@ -49,9 +47,11 @@
     <ImageView
         style="@style/SplashIcon"
         android:id="@+id/icon_internet"
-        android:layout_marginEnd="20dp"
         android:src="@drawable/icon_internet"
+        android:layout_width="@dimen/splash_small_image_size"
+        android:layout_height="@dimen/splash_small_image_size"
         app:layout_constraintVertical_bias="1"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintBottom_toTopOf="@id/guideline_contents"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline_end"
@@ -60,10 +60,12 @@
 
     <ImageView
         style="@style/SplashIcon"
+        android:layout_width="@dimen/splash_small_image_size"
+        android:layout_height="@dimen/splash_small_image_size"
         android:id="@+id/icon_rss"
-        android:layout_marginStart="20dp"
         android:src="@drawable/icon_rss"
         app:layout_constraintVertical_bias="1"
+        app:layout_constraintHorizontal_bias="1"
         app:layout_constraintBottom_toTopOf="@id/guideline_contents"
         app:layout_constraintEnd_toStartOf="@id/guideline_start"
         app:layout_constraintStart_toStartOf="parent"
