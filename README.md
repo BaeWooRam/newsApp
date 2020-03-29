@@ -134,6 +134,12 @@ Paging Library를 써서 만들긴 했지만 뭔가 엉망진창인 느낌이라
 내가 생각하는 기능을 분리시켜 보았다. 
 ![image](https://user-images.githubusercontent.com/41356481/77718211-a5717b00-7025-11ea-8439-8ae50b347bc8.png)
 
+## 03-29
+Gadle로 되어있는것을 nasca로 한번 바꿔보도록 해봐야겠다! 이유는 궁금해서~
+
+자세한 내용은 여기에
+https://medium.com/myrealtrip-product/android-webview%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%ED%9A%A8%EA%B3%BC%EC%A0%81%EC%9D%B8-%EB%8C%80%EC%9A%A9%EB%9F%89-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%A1%9C%EB%94%A9-1c20867caa57
+
 
 
 ## 사용한 오픈소스
