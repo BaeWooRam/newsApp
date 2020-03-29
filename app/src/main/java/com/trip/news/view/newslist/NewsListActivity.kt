@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.paging.PagedList
 import com.trip.news.R
 import com.trip.news.base.view.BaseActivity
+import com.trip.news.model.api.RssService
 import com.trip.news.model.news.News
 import com.trip.news.viewmodel.NewsListViewModel
 import kotlinx.android.synthetic.main.activity_news_list.*
@@ -16,6 +17,7 @@ class NewsListActivity : BaseActivity(R.layout.activity_news_list) {
 
     private val viewModel by viewModel<NewsListViewModel>()
     private var adapter:NewsPageListAdapter? = null
+    private val languageType = RssService.LanguageType.KR
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,13 +26,13 @@ class NewsListActivity : BaseActivity(R.layout.activity_news_list) {
         initRecyclerView()
         initSwipe()
 
-        viewModel.getNews()
+        viewModel.getNews(languageType)
     }
 
     private fun initSwipe(){
         swipe.setOnRefreshListener{
             //viewModel.rssData?.value?.dataSource?.invalidate()
-            viewModel.getNews()
+            viewModel.getNews(languageType)
 
             swipe.isRefreshing = false
         }

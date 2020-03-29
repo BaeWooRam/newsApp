@@ -10,7 +10,9 @@ import com.trip.news.model.news.NewsDataFactory
 import com.trip.news.model.api.RssService
 import com.trip.news.model.news.News
 import com.trip.news.model.news.NewsContentsParser
-import com.trip.news.model.news.NewsContentsParser.Companion.PAGE_NEWS_SIZE
+import com.trip.news.model.rss.Rss
+import com.trip.news.model.rss.RssContentsParser
+import com.trip.news.utils.ConfigUtil.PAGE_NEWS_SIZE
 import com.trip.news.view.newslist.NewsListActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
@@ -19,7 +21,7 @@ import kotlin.properties.Delegates
 import kotlin.reflect.KProperty
 
 class NewsListViewModel(
-    private val rssService: RssService,
+    private val rssContentsParser: RssContentsParser,
     private val newsContentsParser: NewsContentsParser
 ) : BaseViewModel() {
     var targetActivity: NewsListActivity? = null
@@ -55,8 +57,8 @@ class NewsListViewModel(
             }
         })
 
-    fun getNews() {
-        val work = rssService.getKrNewsList()
+    fun getNews(languageType: RssService.LanguageType) {
+        val work = rssContentsParser.getNewsRssWork(languageType)
 
         work.observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -68,28 +70,31 @@ class NewsListViewModel(
                 currentNewsState = NetworkState.Loading(NetworkState.ProgressType.LOADING_RSS)
             }
             .subscribe(Consumer {
-                //Paging DataSourceFactory 생성
-                val dataSourceFactory = NewsDataFactory(
-                    newsContentsParser = newsContentsParser,
-                    rss = it,
-                    viewModel = this
-                )
-
-                //Paging LiveData 생성
-                rssData = LivePagedListBuilder(
-                    dataSourceFactory,
-                    pagedListConfig
-                ).build()
-
-                //LiveData 업데이트 관찰
-                rssData?.observe(targetActivity!!, Observer<PagedList<News>> { item ->
-                    targetActivity!!.onUpdateNews(item)
-                    currentNewsState = NetworkState.Init
-                })
-
+                createPagingLiveData(it)
             }, Consumer {
                 currentNewsState = NetworkState.Error(it)
             })
+    }
+
+    private fun createPagingLiveData(rss:Rss){
+        //Paging DataSourceFactory 생성
+        val dataSourceFactory = NewsDataFactory(
+            newsContentsParser = newsContentsParser,
+            rss = rss,
+            viewModel = this
+        )
+
+        //Paging LiveData 생성
+        rssData = LivePagedListBuilder(
+            dataSourceFactory,
+            pagedListConfig
+        ).build()
+
+        //LiveData 업데이트 관찰
+        rssData?.observe(targetActivity!!, Observer<PagedList<News>> { item ->
+            targetActivity!!.onUpdateNews(item)
+            currentNewsState = NetworkState.Init
+        })
     }
 
 }

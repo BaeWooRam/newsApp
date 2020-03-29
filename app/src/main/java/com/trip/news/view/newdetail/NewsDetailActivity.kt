@@ -22,10 +22,16 @@ class NewsDetailActivity : BaseActivity(R.layout.activity_news_detail){
         webViewSetting.javaScriptEnabled = true
         webViewSetting.domStorageEnabled = true
 
+        //브라우저 크롬때문에 설정
         wv_news.webChromeClient = WebChromeClient()
+
+        //웹 뷰에 직접 띄우기 위해 설정
         wv_news.webViewClient = WebViewClientClass()
+
+        //WebView에 네트워크 상태를 알리는 것
         wv_news.setNetworkAvailable(true)
 
+        //선택한 Link로 WebView에 띄운다.
         val link = intent.getStringExtra(NewsListActivity.INTENT_ACTIVITY_NEWS_DETAIL)
         wv_news.loadUrl(link)
     }

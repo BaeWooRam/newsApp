@@ -1,9 +1,8 @@
 package com.trip.news.model.news
 
-import android.os.Build
-import android.text.Html
 import android.util.Log
 import com.trip.news.model.rss.Item
+import com.trip.news.utils.ConfigUtil.KEYWORD_COUNT_MAX
 import com.trip.news.utils.StringUtil.replaceSpecialCharacters
 import org.jsoup.Jsoup
 import org.jsoup.select.Elements
@@ -22,13 +21,7 @@ import kotlin.collections.HashMap
  * RSS 아이템의 본문 분석해서 News 클래스로 만드는 역할
  */
 class NewsContentsParser {
-    companion object {
-        const val KEYWORD_COUNT_MAX = 3
-        const val PAGE_NEWS_SIZE = 12
-    }
-
     private var id = 0
-    private val tag = javaClass.simpleName
 
     /**
      * og:image, og:description 또는 description, keyword가져오기
@@ -88,16 +81,19 @@ class NewsContentsParser {
      */
     @Throws(PatternSyntaxException::class)
     private fun parserKeyword(description: String): List<String>{
+        //특수문자 제거
         val replacedDescription = replaceSpecialCharacters(description, "")
-//        Log.i(tag,"description : $description \nreplacedDescription : $replacedDescription")
+
+        //빈도수 체크를 위한 Keyword 토큰 나누기
         val keywordToken = StringTokenizer(replacedDescription, " ")
         val keywordCountHash: HashMap<String, Int> = HashMap()
 
+        //Keyword 토큰마다 빈도수를 확인해준다.
         while (keywordToken.hasMoreTokens()) {
             val target = keywordToken.nextToken()
             val count = getCountMatchKeyword(target, description)
             keywordCountHash[target] = count
-//            Log.i(tag,"$target : $count")
+//            Log.i("parserKeyword","$target : $count")
         }
 
         return getFrequentKeyword(keywordCountHash)

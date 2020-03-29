@@ -7,6 +7,7 @@ import androidx.paging.PositionalDataSource
 import com.trip.news.model.NetworkState
 import com.trip.news.model.rss.Item
 import com.trip.news.model.rss.Rss
+import com.trip.news.utils.ConfigUtil.PAGE_NEWS_SIZE
 import com.trip.news.viewmodel.NewsListViewModel
 import kotlin.collections.ArrayList
 
@@ -16,9 +17,11 @@ class NewsDataSource(
     private val viewModel: NewsListViewModel
 ) : PositionalDataSource<News>() {
 
-    private val tag = javaClass.simpleName
+    //아이템을 12개씩 Pop시키기 위한 큐
     private val itemQueue = rss.channel.getItemQueue()
-    private val handler = Handler(Looper.getMainLooper()){
+
+    //Progress Bar를 NewsDataSource에서 보여주기 위한 Handler
+    private val progressHandler = Handler(Looper.getMainLooper()){
         when(it.what){
             NetworkState.ProgressType.LOADING_NEWS.getValue() -> {
                 viewModel.currentNewsState = NetworkState.Loading(type = NetworkState.ProgressType.LOADING_NEWS)
@@ -40,20 +43,20 @@ class NewsDataSource(
         params: LoadInitialParams,
         callback: LoadInitialCallback<News>
     ) {
-//        Log.i( tag, "Initial Loading, itemQueue : ${itemQueue.size}, start: ${params.requestedStartPosition}, size: ${params.requestedLoadSize}" )
-        handler.sendEmptyMessage(NetworkState.ProgressType.LOADING_NEWS.getValue())
+        Log.i( "loadInitial", "Initial Loading, itemQueue : ${itemQueue.size}, start: ${params.requestedStartPosition}, size: ${params.requestedLoadSize}" )
+        progressHandler.sendEmptyMessage(NetworkState.ProgressType.LOADING_NEWS.getValue())
         val rssItem = getRssItem()
         val data = newsContentsParser.parserNewsContents(rssItem)
-        handler.sendEmptyMessage(NetworkState.ProgressType.LOADING_NONE.getValue())
+        progressHandler.sendEmptyMessage(NetworkState.ProgressType.LOADING_NONE.getValue())
         callback.onResult(data, 0)
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<News>) {
-//        Log.i(tag, "Range Loading, itemQueue : ${itemQueue.size}, start: ${params.startPosition}, size: ${params.loadSize}" )
-        handler.sendEmptyMessage(NetworkState.ProgressType.LOADING_NEWS.getValue())
+        Log.i("loadRange", "Range Loading, itemQueue : ${itemQueue.size}, start: ${params.startPosition}, size: ${params.loadSize}" )
+        progressHandler.sendEmptyMessage(NetworkState.ProgressType.LOADING_NEWS.getValue())
         val rssItem = getRssItem()
         val data = newsContentsParser.parserNewsContents(rssItem)
-        handler.sendEmptyMessage(NetworkState.ProgressType.LOADING_NONE.getValue())
+        progressHandler.sendEmptyMessage(NetworkState.ProgressType.LOADING_NONE.getValue())
         callback.onResult(data)
 
     }
@@ -66,7 +69,7 @@ class NewsDataSource(
         var count = 0
 
         while (itemQueue.isNotEmpty()) {
-            if (count == NewsContentsParser.PAGE_NEWS_SIZE)
+            if (count == PAGE_NEWS_SIZE)
                 return itemList
             else {
                 val temp = itemQueue.poll()

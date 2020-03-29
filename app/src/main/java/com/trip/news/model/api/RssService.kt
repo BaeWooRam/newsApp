@@ -10,6 +10,13 @@ interface RssService {
         const val RSS_KR_URL = "rss?hl=ko&gl=KR&ceid=KR:ko"
         const val RSS_EN_URL = "rss?hl=en-US&gl=US&ceid=US:en"
     }
+
+    enum class LanguageType(private val value: Int){
+        KR(0), EN(1);
+
+        fun getValue() = value
+    }
+
     /**
      * 테스트용 구글 한국 뉴스
      */
@@ -29,7 +36,7 @@ interface RssService {
     fun getKrNewsList(): Observable<Rss>
 
     /**
-     * 테스트용 구글 미국 뉴스
+     * 구글 미국 뉴스
      */
     @GET(RSS_EN_URL)
     fun getEnNewsList(): Observable<Rss>
