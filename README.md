@@ -106,7 +106,7 @@ Intent로 ActivityDetail이란 Activity를 만들어서 보여주려고 한다.
 3. 주어진 UI 대로 만들것
    
     
-    
+                
 2주차
 ===
 ## 03-24
